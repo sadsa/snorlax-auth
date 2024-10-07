@@ -1,0 +1,110 @@
+:root {
+  /* Snorlax-inspired color palette */
+  --snorlax-primary: #6B8E23;      /* Forest green for base color */
+  --snorlax-secondary: #4A5568;    /* Dark grey for body */
+  --snorlax-cream: #F7FAFC;        /* Light cream for background */
+  --snorlax-beige: #FAF3DD;        /* Beige for cards */
+  --snorlax-dark: #2D3748;         /* Dark color for text */
+  --snorlax-accent: #9ACD32;       /* Light green for accents */
+  --snorlax-warning: #C53030;      /* Red for warnings */
+  --snorlax-shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: var(--snorlax-cream);
+  font-family: 'Roboto', sans-serif;
+  color: var(--snorlax-dark);
+}
+
+.login-pf-page {
+  padding-top: 40px;
+  background-image: url('../img/snorlax-pattern.png');
+  background-repeat: repeat;
+  background-size: 200px;
+  background-opacity: 0.1;
+}
+
+.card-pf {
+  background: var(--snorlax-beige);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px var(--snorlax-shadow);
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Header styles */
+#kc-header-wrapper {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--snorlax-dark);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#kc-header-wrapper::before {
+  content: '😴';
+  margin-right: 10px;
+}
+
+/* Form styles */
+.form-control {
+  border: 2px solid var(--snorlax-primary);
+  border-radius: 8px;
+  padding: 10px 15px;
+  height: auto;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--snorlax-accent);
+  box-shadow: 0 0 0 3px rgba(154, 205, 50, 0.3);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--snorlax-primary);
+  border-color: var(--snorlax-primary);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--snorlax-accent);
+  border-color: var(--snorlax-accent);
+  transform: translateY(-1px);
+}
+
+/* Alert styles */
+.alert {
+  border-radius: 8px;
+  border: none;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.alert-error {
+  background-color: var(--snorlax-warning);
+  color: white;
+}
+
+/* Social buttons */
+.zocial {
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 10px 20px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+/* Remember me checkbox */
+.checkbox {
+  margin-top: 15px;
+}
+
+.checkbox label {
+  font-size: 14px;
+  color: var(--snorlax-secondary);
+}
