@@ -1,0 +1,31 @@
+# Environment variables
+.env
+*.env
+
+# Database volumes
+data/
+
+# Logs
+logs/
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Backups
+backups/
+
+# Certificates
+certs/
