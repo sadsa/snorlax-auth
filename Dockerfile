@@ -1,23 +1,19 @@
-FROM quay.io/keycloak/keycloak:latest AS builder
+FROM quay.io/keycloak/keycloak:26.0.1 AS builder
 
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 
-# Configure custom theme
-COPY themes/snorlax /opt/keycloak/themes/snorlax
-
 # Configure the database vendor
 ENV KC_DB=postgres
 
 WORKDIR /opt/keycloak
-# Build optimized configuration
-RUN /opt/keycloak/bin/kc.sh build
+RUN /opt/keycloak/bin/kc.sh build 
 
-FROM quay.io/keycloak/keycloak:latest
+FROM quay.io/keycloak/keycloak:26.0.1
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 # Set proper permissions
 USER 1000
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]

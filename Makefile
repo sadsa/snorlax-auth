@@ -33,9 +33,17 @@ help: ## Display this help
 	@echo -e "$(BLUE)snorlax-Auth Makefile Commands:$(NC)"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(GREEN)%-30s$(NC) %s\n", $$1, $$2}'
 
+generate-certs: ## Generate self-signed certificates
+	@echo -e "$(BLUE)Generating self-signed certificates...$(NC)"
+	@mkdir -p certs
+	@openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+		-keyout certs/key.pem -out certs/cert.pem \
+		-subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
+	@echo -e "$(GREEN)Certificates generated at: certs/cert.pem and certs/key.pem$(NC)"
+
 check-env: ## Verify all required environment variables are set
 	@echo -e "$(BLUE)Checking environment variables...$(NC)"
-	@test -n "$(DB_PASSWORD)" || (echo -e "$(RED)DB_PASSWORD is not set$(NC)" && exit 1)
+	@test -n "$(POSTGRES_PASSWORD)" || (echo -e "$(RED)POSTGRES_PASSWORD is not set$(NC)" && exit 1)
 	@test -n "$(KC_BOOTSTRAP_ADMIN_PASSWORD)" || (echo -e "$(RED)KC_BOOTSTRAP_ADMIN_PASSWORD is not set$(NC)" && exit 1)
 	@echo -e "$(GREEN)Environment variables check passed$(NC)"
 
@@ -44,7 +52,7 @@ up: check-env ## Start all services
 	@mkdir -p $(BACKUP_DIR)
 	$(DOCKER_COMPOSE) up -d
 	@echo -e "$(GREEN)Services started successfully$(NC)"
-	@echo -e "Admin console available at: http://localhost:8080/admin"
+	@echo -e "Admin console available at: https://localhost:8443"
 
 down: ## Stop all services
 	@echo -e "$(BLUE)Stopping services...$(NC)"

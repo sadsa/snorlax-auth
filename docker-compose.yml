@@ -1,10 +1,10 @@
 services:
   postgres:
-    image: postgres:14
+    image: postgres:16.2
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -14,22 +14,29 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: start --optimized
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      KC_DB_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${DB_PASSWORD}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
-      KC_PROXY: edge
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
       KC_HOSTNAME_STRICT: false
-      KC_HTTP_ENABLED: true
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/cert.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/key.pem
     ports:
       - "8080:8080"
+      - "8443:8443"
     depends_on:
       - postgres
     networks:
       - keycloak-network
+    volumes:
+      - ./certs:/opt/keycloak/certs
+      - ./themes:/opt/keycloak/themes
 
 volumes:
   postgres_data:

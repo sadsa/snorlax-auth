@@ -14,16 +14,14 @@
 
 ## 📖 Overview
 
-snorlax-auth is our centralized authentication and authorization infrastructure using Keycloak. Just as Snorlax blocks the path of unauthorized trainers, this repository manages and secures your application's authentication needs. With Snorlax's legendary defensive capabilities, your authentication infrastructure is in safe hands.
+snorlax-auth is our centralized authentication and authorization infrastructure using Keycloak. Just as Snorlax blocks the path of unauthorized trainers, this repository manages and secures your application's authentication needs.
 
 ### 🌟 Features
 
-- 🛡️ Rock-solid authentication barrier (Containerized Keycloak)
-- 🔑 Centralized user management (as reliable as Snorlax's Rest)
-- 🔒 Role-based access control (RBAC) (like Snorlax guarding different routes)
+- 🛡️ Rock-solid authentication barrier
+- 🔑 Centralized user management
+- 🔒 Role-based access control (RBAC)
 - 🔄 OAuth 2.0 and OpenID Connect support
-- 🎨 Custom theme support (style your auth like a shiny Snorlax)
-- 🔙 Automated backup solutions (because even Snorlax needs a backup)
 
 ## 🚀 Quick Start
 
@@ -33,57 +31,40 @@ snorlax-auth is our centralized authentication and authorization infrastructure 
 - Docker Compose (2.x or higher)
 - Make (required for automation scripts)
 
-### Installation
+### Installation and Local Development
 
-1. Clone the repository:
+1. **Clone the repository**:
+   ```bash
+   git clone git@github.com:your-organization/snorlax-auth.git
+   cd snorlax-auth
+   ```
 
-```bash
-git clone git@github.com:your-organization/snorlax-auth.git
-cd snorlax-auth
-```
+2. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
 
-2. Set up environment variables:
+3. **Generate Certificates**:
+   Before starting development, you need to generate self-signed certificates for local use. Run the following command:
+   ```bash
+   make generate-certs
+   ```
+   This will create a `certs` directory containing `cert.pem` and `key.pem` files.
 
-```bash
-cp .env.example .env
-```
+4. **Start the services**:
+   ```bash
+   make up
+   ```
 
-3. Start the services:
-
-```bash
-make up
-```
-
-4. Access Keycloak:
-
-- Admin Console: http://localhost:8080/admin
-- Default credentials (change these immediately):
-  - Username: admin
-  - Password: (from your .env file)
-
-
-## 🛠️ Development
-
-### Local Development
-
-```bash
-# Start development environment
-make dev
-
-# View logs
-make logs
-
-# Restart services
-make restart
-
-# Stop services
-make down
-```
+5. **Access Keycloak**:
+   - Admin Console: https://localhost:8443/admin
+   - Default credentials (change these immediately):
+     - Username: admin
+     - Password: (from your .env file)
 
 ## 📋 Makefile Commands
 
-Our Makefile provides comprehensive commands for managing the Keycloak infrastructure, as dependable as a sleeping Snorlax. View all available commands with:
-
+Our Makefile provides comprehensive commands for managing the Keycloak infrastructure. View all available commands with:
 ```bash
 make help
 ```
@@ -98,20 +79,7 @@ make status          # Check Snorlax's status
 make logs            # View Snorlax's dreams (logs)
 make backup          # Create a backup of the realm and database
 make restore         # Restore from a backup (Usage: make restore BACKUP_FILE=path/to/backup.json)
-```
-
-## 🏗️ Repository Structure
-
-```
-snorlax-auth/
-├── config/           # Snorlax's configuration
-├── docker/           # Container configs
-├── scripts/          # Helper scripts
-├── themes/           # Custom themes
-├── terraform/        # Infrastructure as Code
-├── tests/            # Testing scripts
-├── backups/          # Recovery points
-└── docs/             # Documentation
+make generate-certs  # Generate self-signed certificates
 ```
 
 ### Best Practices
@@ -126,27 +94,14 @@ snorlax-auth/
 
 - Run `make help` for command assistance
 - Create an issue in this repository
-- Contact the security team at security@your-organization.com
-- Join our Slack channel: #snorlax-auth-support
 
 ### Troubleshooting
 
-If you encounter issues:
+#### "Your connection is not private" screen when accessing localhost over HTTPS
 
-1. Check if Snorlax is awake (services are running):
-```bash
-make status
-```
-
-2. View Snorlax's dreams (logs):
-```bash
-make logs
-```
-
-3. Wake up Snorlax (restart services):
-```bash
-make restart
-```
+- In Chrome, put in `chrome://flags/#allow-insecure-localhost` in the address bar.
+- Enable the option that says "Allow invalid certificates for resources loaded from localhost".
+- Restart Chrome, and it should allow the site.
 
 ---
 *Rest easy knowing Snorlax is guarding your authentication* 🛡️😴
